@@ -25,6 +25,9 @@ jobs:
       - name: Installing dependencies
         run: yarn install
 
+      - name: Building
+        run: yarn build
+
       - name: Running tests on Linux
         run: xvfb-run -a yarn test
         if: runner.os == 'Linux'
