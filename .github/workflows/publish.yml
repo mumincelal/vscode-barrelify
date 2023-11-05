@@ -24,4 +24,4 @@ jobs:
       - name: Publish
         run: |
           vsce package --no-yarn
-          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --no-yarn
+          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --no-yarn --pre-release
