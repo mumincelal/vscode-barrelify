@@ -1,10 +1,15 @@
 {
   "name": "barrelify",
   "displayName": "Barrelify",
-  "description": "Barrelify",
+  "description": "Streamlines project's organization by automatically generating barrel files",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.84.0"
+  },
+  "homepage": "https://github.com/mumincelal/barrelify",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mumincelal/barrelify.git"
   },
   "categories": [
     "Other"
@@ -25,6 +30,7 @@
     "watch": "tsc -watch -p ./",
     "pretest": "yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
+    "release": "vsce publish",
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
