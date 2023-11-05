@@ -17,7 +17,7 @@ jobs:
           node-version: 18
 
       - name: Installing dependencies
-        run: npm install
+        run: yarn install
 
       - name: Publish
-        run: npm run vsce publish --no-yarn -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
+        run: yarn vsce publish --yarn -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
