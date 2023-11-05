@@ -1,0 +1,39 @@
+name: Build
+run-name: Build
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        node-version: [18.x, 20.x]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Installing dependencies
+        run: yarn install
+
+      - name: Building
+        run: yarn build
+
+      - name: Running tests on Linux
+        run: xvfb-run -a yarn test
+        if: runner.os == 'Linux'
+
+      - name: Running tests on macOS
+        run: yarn test
+        if: runner.os == 'macOS'
+
+      - name: Running tests on Windows
+        run: yarn test
+        if: runner.os == 'Windows'
