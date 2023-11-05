@@ -21,7 +21,8 @@ jobs:
           npm install
           npm install -g @vscode/vsce
 
-      - name: Publish
-        run: |
-          vsce package --no-yarn
-          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --no-yarn --pre-release
+      - name: Semantic Release
+        run: npm run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VSCE_PAT: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
