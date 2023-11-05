@@ -1,5 +1,5 @@
 name: Publish
-run-name: Build
+run-name: Publish
 on:
   release:
     types: [published]
@@ -17,7 +17,7 @@ jobs:
           node-version: 18
 
       - name: Installing dependencies
-        run: yarn install
+        run: npm install
 
       - name: Publish
-        run: yarn vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
+        run: npm run vsce publish --no-yarn -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
