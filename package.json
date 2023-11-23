@@ -2,7 +2,7 @@
   "name": "barrelify",
   "displayName": "Barrelify",
   "description": "Streamlines project's organization by automatically generating barrel files",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "publisher": "mumincelal",
   "homepage": "https://github.com/mumincelal/barrelify",
@@ -17,15 +17,15 @@
     "Other"
   ],
   "extensionPack": [
-    "mumincelal.vscode-barrelify"
+    "mumincelal.barrelify"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "barrelify.helloWorld",
-        "title": "Hello World"
+        "command": "barrelify.createBarrelFile",
+        "title": "Barrelify: Create Barrel File"
       }
     ]
   },
@@ -55,5 +55,5 @@
     "semantic-release-vsce": "^5.6.3",
     "typescript": "^5.2.2"
   },
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.0.2"
 }
