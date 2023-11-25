@@ -26,10 +26,12 @@
     "commands": [
       {
         "command": "barrelify.barrelFileWithCommandPalette",
+        "category": "Barrelify",
         "title": "Barrelify: Watch Barrel File"
       },
       {
         "command": "barrelify.barrelFileWithExplorerContext",
+        "category": "Barrelify",
         "title": "Create/Update Barrel File"
       }
     ],
