@@ -2,7 +2,7 @@
   "name": "barrelify",
   "displayName": "Barrelify",
   "description": "Streamlines project's organization by automatically generating barrel files",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "private": true,
   "publisher": "mumincelal",
