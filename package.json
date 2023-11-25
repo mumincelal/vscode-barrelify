@@ -80,5 +80,8 @@
     "dependencies": true,
     "yarn": false
   },
+  "sponsor": {
+    "url": "https://github.com/sponsors/mumincelal"
+  },
   "packageManager": "yarn@4.0.2"
 }
