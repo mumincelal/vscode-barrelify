@@ -1,16 +1,16 @@
 import * as vscode from 'vscode';
-import { createBarrelFile } from './utils';
-import { CREATE_BARREL_FILE_COMMAND } from './constants';
+import { WATCH_BARREL_FILE_WITH_EXPLORER_CONTEXT } from './constants';
+import { watchBarrelFile } from './utils';
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('"barrelify" extension is active!');
 
-  const disposable = vscode.commands.registerCommand(
-    CREATE_BARREL_FILE_COMMAND,
-    () => createBarrelFile()
+  const watchBarrelFileWithExplorerContext = vscode.commands.registerCommand(
+    WATCH_BARREL_FILE_WITH_EXPLORER_CONTEXT,
+    (uri: vscode.Uri) => watchBarrelFile(uri)
   );
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(watchBarrelFileWithExplorerContext);
 }
 
 // This method is called when your extension is deactivated

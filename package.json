@@ -24,10 +24,22 @@
   "contributes": {
     "commands": [
       {
-        "command": "barrelify.createBarrelFile",
-        "title": "Barrelify: Create Barrel File"
+        "command": "barrelify.barrelFileWithCommandPalette",
+        "title": "Barrelify: Watch Barrel File"
+      },
+      {
+        "command": "barrelify.barrelFileWithExplorerContext",
+        "title": "Create/Update Barrel File"
       }
-    ]
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "barrelify.barrelFileWithExplorerContext",
+          "group": "2_barrelify"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
@@ -44,13 +56,15 @@
     "@types/mocha": "^10.0.3",
     "@types/node": "18.x",
     "@types/vscode": "^1.84.0",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.9.0",
     "@vscode/test-electron": "^2.3.6",
     "@vscode/vsce": "^2.22.0",
     "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
     "glob": "^10.3.10",
     "mocha": "^10.2.0",
+    "prettier": "^3.1.0",
     "semantic-release": "^22.0.7",
     "semantic-release-vsce": "^5.6.3",
     "typescript": "^5.2.2"
