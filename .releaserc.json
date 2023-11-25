@@ -2,54 +2,11 @@
   "branches": [
     "main"
   ],
-  "repositoryUrl": "https://github.com/mumincelal/barrelify",
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    [
-      "semantic-release-yarn",
-      {
-        "npmPublish": false
-      }
-    ],
-    [
-      "@semantic-release/github",
-      {
-        "assets": "*.vsix"
-      }
-    ],
-    "@semantic-release/git",
-    [
-      "semantic-release-vsce",
-      {
-        "packageVsix": true
-      }
-    ]
-  ],
-  "prepare": [
-    "@semantic-release/changelog",
-    [
-      "@semantic-release/git",
-      {
-        "assets": [
-          "package.json",
-          "yarn.lock",
-          "CHANGELOG.md"
-        ],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
-    ],
-    {
-      "path": "semantic-release-vsce",
-      "packageVsix": "mumincelal.barrelify.vsix"
-    }
-  ],
-  "publish": [
-    "semantic-release-vsce",
-    {
-      "path": "@semantic-release/github",
-      "assets": "mumincelal.barrelify.vsix"
-    }
+    "@semantic-release/github",
+    "@semantic-release/git"
   ]
 }
