@@ -26,10 +26,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          yarn install
+          npm install --no-yarn
+          npm install -g @vscode/vsce
 
       - name: Semantic Release
-        run: npx semantic-release
+        run: npm run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VSCE_PAT: ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}
