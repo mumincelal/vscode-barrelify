@@ -1,23 +1,30 @@
-name: Publish
-run-name: Publish
+name: Release
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Installing dependencies
+      - name: Install dependencies
         run: |
           npm install
           npm install -g @vscode/vsce
