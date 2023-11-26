@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/mumincelal/barrelify/compare/v1.0.0...v1.0.1) (2023-11-26)
+
+
+### Bug Fixes
+
+* disable ovsx token ([f34b083](https://github.com/mumincelal/barrelify/commit/f34b0835cbfbc7cbd011c857dd376b675ca68d33))
+* solve ovsx deploy problem ([68f51b6](https://github.com/mumincelal/barrelify/commit/68f51b62b024a2b6253e6dd1ee298fcd7ed29abb))
+
 # 1.0.0 (2023-11-26)
 
 
