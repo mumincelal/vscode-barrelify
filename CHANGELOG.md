@@ -1,17 +1,3 @@
-# [1.1.0](https://github.com/mumincelal/barrelify/compare/v1.0.0...v1.1.0) (2023-11-26)
-
-
-### Bug Fixes
-
-* disable ovsx token ([b8d9815](https://github.com/mumincelal/barrelify/commit/b8d98152cec635cae0b62afec278335c3ce1ff29))
-* disable ovsx token ([f34b083](https://github.com/mumincelal/barrelify/commit/f34b0835cbfbc7cbd011c857dd376b675ca68d33))
-* solve ovsx deploy problem ([68f51b6](https://github.com/mumincelal/barrelify/commit/68f51b62b024a2b6253e6dd1ee298fcd7ed29abb))
-
-
-### Features
-
-* change semantic-release plugin running order ([361eb78](https://github.com/mumincelal/barrelify/commit/361eb783e951f043e23133c2b8aabdebb41b17cb))
-
 # 1.0.0 (2023-11-26)
 
 ### Bug Fixes
