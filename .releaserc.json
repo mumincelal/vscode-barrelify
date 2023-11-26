@@ -6,19 +6,19 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     "@semantic-release/npm",
+    "@semantic-release/changelog",
     "@semantic-release/github",
     "@semantic-release/git",
-    "semantic-release-vsce",
-    "@semantic-release/changelog"
+    "semantic-release-vsce"
   ],
   "prepare": [
     "@semantic-release/npm",
-    "@semantic-release/changelog",
     "@semantic-release/git",
     {
       "path": "semantic-release-vsce",
       "packageVsix": "mumincelal.barrelify.vsix"
-    }
+    },
+    "@semantic-release/changelog"
   ],
   "publish": [
     "semantic-release-vsce",
