@@ -2,7 +2,7 @@
   "name": "barrelify",
   "displayName": "Barrelify",
   "description": "Streamlines project's organization by automatically generating barrel files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "private": true,
   "publisher": "mumincelal",
@@ -48,7 +48,7 @@
     "vscode:prepublish": "tsc -p ./",
     "build": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "yarn compile && yarn lint",
+    "pretest": "pnpm compile && pnpm lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "semantic-release": "semantic-release"
@@ -74,11 +74,9 @@
     "prettier": "^3.1.0",
     "semantic-release": "^22.0.8",
     "semantic-release-vsce": "^5.6.3",
-    "semantic-release-yarn": "^3.0.2",
     "typescript": "^5.3.2"
   },
   "sponsor": {
     "url": "https://github.com/sponsors/mumincelal"
-  },
-  "packageManager": "yarn@4.0.2"
+  }
 }

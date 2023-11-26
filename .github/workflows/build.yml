@@ -15,25 +15,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
       - name: Installing dependencies
-        run: yarn install
+        run: pnpm install
 
       - name: Building
-        run: yarn build
+        run: pnpm build
 
       - name: Running tests on Linux
-        run: xvfb-run -a yarn test
+        run: xvfb-run -a pnpm test
         if: runner.os == 'Linux'
 
       - name: Running tests on macOS
-        run: yarn test
+        run: pnpm test
         if: runner.os == 'macOS'
 
       - name: Running tests on Windows
-        run: yarn test
+        run: pnpm test
         if: runner.os == 'Windows'
