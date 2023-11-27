@@ -2,16 +2,6 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const executeBarrelFile = async (uri: vscode.Uri) => {
-  if (uri && uri.scheme === 'file') {
-    const { barrelFilePath, fileNames } = await prepare(uri);
-
-    fs.existsSync(barrelFilePath)
-      ? updateBarrelFile(uri)
-      : createBarrelFile(fileNames, barrelFilePath);
-  }
-};
-
 export const createBarrelFile = async (fileNames: string[], barrelFilePath: string) => {
   try {
     const exportStatements = getExportStatements(fileNames);
@@ -26,38 +16,38 @@ export const createBarrelFile = async (fileNames: string[], barrelFilePath: stri
   }
 };
 
-export const updateBarrelFile = async (uri: vscode.Uri) => {
-  if (uri && uri.scheme === 'file') {
-    const { barrelFileName, barrelFilePath, fileNames } = await prepare(uri);
+export const updateBarrelFile = async (
+  barrelFileName: string,
+  barrelFilePath: string,
+  fileNames: string[]
+) => {
+  try {
+    const barrelFileContent = readFile(barrelFilePath);
 
-    try {
-      const barrelFileContent = readFile(barrelFilePath);
+    const fileNamesExceptBarrelFile = fileNames.filter((fileName) => fileName !== barrelFileName);
+    const exportStatements = getExportStatements(fileNamesExceptBarrelFile);
+    const currentExportStatements = removeUnusedExports(barrelFileContent, exportStatements);
 
-      const fileNamesExceptBarrelFile = fileNames.filter((fileName) => fileName !== barrelFileName);
-      const exportStatements = getExportStatements(fileNamesExceptBarrelFile);
-      const currentExportStatements = removeUnusedExports(barrelFileContent, exportStatements);
+    const newExportStatements = exportStatements.filter(
+      (exportStatement) => !barrelFileContent.includes(exportStatement)
+    );
 
-      const newExportStatements = exportStatements.filter(
-        (exportStatement) => !barrelFileContent.includes(exportStatement)
-      );
+    const updatedBarrelFileContent = [...currentExportStatements, ...newExportStatements]
+      .sort()
+      .join('\n');
 
-      const updatedBarrelFileContent = [...currentExportStatements, ...newExportStatements]
-        .sort()
-        .join('\n');
+    if (updatedBarrelFileContent !== barrelFileContent) {
+      writeFile(barrelFilePath, updatedBarrelFileContent);
 
-      if (updatedBarrelFileContent !== barrelFileContent) {
-        writeFile(barrelFilePath, updatedBarrelFileContent);
-
-        vscode.window.showInformationMessage('Barrel file updated successfully.');
-      } else {
-        vscode.window.showInformationMessage('Barrel file is up to date.');
-      }
-    } catch (error) {
-      console.error('Error updating barrel file:', error);
-      vscode.window.showErrorMessage(
-        'Error updating barrel file. Please check the console for details.'
-      );
+      vscode.window.showInformationMessage('Barrel file updated successfully.');
+    } else {
+      vscode.window.showInformationMessage('Barrel file is up to date.');
     }
+  } catch (error) {
+    console.error('Error updating barrel file:', error);
+    vscode.window.showErrorMessage(
+      'Error updating barrel file. Please check the console for details.'
+    );
   }
 };
 
@@ -74,26 +64,14 @@ const removeUnusedExports = (fileContent: string, exportStatements: string[]): s
     .filter((line) => !line.startsWith('export * from') || exportStatements.includes(line))
     .sort();
 
-const prepare = async (uri: vscode.Uri) => {
-  const entries = await vscode.workspace.fs.readDirectory(uri);
-
-  const fileNames = getFilesInFolder(entries);
-  const folderPath = uri.fsPath;
-  const preferredExtension = getPreferredExtension(folderPath);
-  const barrelFileName = `index${preferredExtension}`;
-  const barrelFilePath = path.join(folderPath, barrelFileName);
-
-  return { fileNames, barrelFileName, barrelFilePath };
-};
-
-const getFilesInFolder = (entries: [string, vscode.FileType][]) => {
+export const getFilesInFolder = (entries: [string, vscode.FileType][]) => {
   const files = entries.filter(([_, type]) => type === vscode.FileType.File);
   const fileNames = files.map(([fileName]) => fileName);
 
   return fileNames;
 };
 
-const getPreferredExtension = (folderPath: string) => {
+export const getPreferredExtension = (folderPath: string) => {
   const entries = fs.readdirSync(folderPath);
   const files = entries.filter((entry) => fs.statSync(path.join(folderPath, entry)).isFile);
 
