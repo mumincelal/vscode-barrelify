@@ -17,6 +17,7 @@
   "categories": [
     "Other"
   ],
+  "keywords": [],
   "extensionPack": [
     "mumincelal.barrelify"
   ],
@@ -25,20 +26,20 @@
   "contributes": {
     "commands": [
       {
-        "command": "barrelify.barrelFileWithCommandPalette",
-        "category": "Barrelify",
-        "title": "Barrelify: Watch Barrel File"
-      },
-      {
-        "command": "barrelify.barrelFileWithExplorerContext",
+        "command": "barrelify.handleBarrelFileWithCP",
         "category": "Barrelify",
         "title": "Create/Update Barrel File"
+      },
+      {
+        "command": "barrelify.executeBarrelFile",
+        "category": "Barrelify",
+        "title": "Execute Barrel File"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "barrelify.barrelFileWithExplorerContext",
+          "command": "barrelify.executeBarrelFile",
           "group": "2_barrelify"
         }
       ]

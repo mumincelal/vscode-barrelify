@@ -13,12 +13,12 @@
   ],
   "prepare": [
     "@semantic-release/npm",
+    "@semantic-release/changelog",
     "@semantic-release/git",
     {
       "path": "semantic-release-vsce",
       "packageVsix": "mumincelal.barrelify.vsix"
-    },
-    "@semantic-release/changelog"
+    }
   ],
   "publish": [
     "semantic-release-vsce",
