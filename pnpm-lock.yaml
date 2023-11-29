@@ -62,6 +62,9 @@ devDependencies:
   prettier:
     specifier: ^3.1.0
     version: 3.1.0
+  rimraf:
+    specifier: ^5.0.5
+    version: 5.0.5
   semantic-release:
     specifier: ^22.0.8
     version: 22.0.8(typescript@5.3.2)
@@ -3651,6 +3654,14 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+    dev: true
+
+  /rimraf@5.0.5:
+    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      glob: 10.3.10
     dev: true
 
   /run-parallel@1.2.0:

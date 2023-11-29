@@ -18,11 +18,9 @@
     "Other"
   ],
   "keywords": [],
-  "extensionPack": [
-    "mumincelal.barrelify"
-  ],
+  "icon": "images/icon.png",
   "activationEvents": [],
-  "main": "./build/extension.js",
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
@@ -57,13 +55,14 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "tsc -p ./",
-    "build": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "pnpm compile && pnpm lint",
+    "vscode:prepublish": "rimraf out && tsc -p ./",
+    "build": "rimraf out && tsc -p ./",
     "lint": "eslint {src,test}/**/*.ts --fix",
     "format": "prettier --write {src,test}/**/*.ts",
-    "test": "node ./build/test/runTest.js",
+    "watch": "tsc -watch -p ./",
+    "pretest": "tsc -p tsconfig.test.json",
+    "test": "node ./out/test/runTest.js",
+    "clean": "rimraf out",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
@@ -86,6 +85,7 @@
     "lint-staged": "^15.1.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
     "semantic-release": "^22.0.8",
     "semantic-release-vsce": "^5.6.4",
     "typescript": "^5.3.2"

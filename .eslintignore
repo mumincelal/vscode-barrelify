@@ -1,5 +1,5 @@
 node_modules
-build
+out
 commitlint.config.js
 .vscode-test
 *.md

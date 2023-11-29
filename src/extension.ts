@@ -4,14 +4,14 @@ import * as path from 'path';
 import { createBarrelFile, getFilesInFolder, getPreferredExtension, updateBarrelFile } from './utils';
 
 export function activate(context: vscode.ExtensionContext) {
-  register(context, (uri: vscode.Uri) => executeBarrel(uri), 'executeBarrel');
-  register(context, (uri: vscode.Uri) => executeStepwiseBarrel(uri), 'executeStepwiseBarrel');
-  register(context, (uri: vscode.Uri) => executeWatcherBarrel(uri), 'executeWatcherBarrel');
+  register(context, (uri?: vscode.Uri) => executeBarrel(uri), 'executeBarrel');
+  register(context, (uri?: vscode.Uri) => executeStepwiseBarrel(uri), 'executeStepwiseBarrel');
+  register(context, (uri?: vscode.Uri) => executeWatcherBarrel(uri), 'executeWatcherBarrel');
 }
 
 const register = (
   context: vscode.ExtensionContext,
-  command: (uri: vscode.Uri) => Promise<void>,
+  command: (uri?: vscode.Uri) => Promise<void>,
   commandName: string
 ) => {
   const proxy = (args: never) => command(args).catch(handleError);
@@ -28,7 +28,7 @@ const handleError = (error: Error) => {
   return error;
 };
 
-const executeBarrel = async (uri: vscode.Uri) => {
+const executeBarrel = async (uri?: vscode.Uri) => {
   if (uri && uri.scheme === 'file') {
     const entries = await vscode.workspace.fs.readDirectory(uri);
 
@@ -44,6 +44,15 @@ const executeBarrel = async (uri: vscode.Uri) => {
   }
 };
 
-const executeStepwiseBarrel = async (_: vscode.Uri) => {};
+const executeStepwiseBarrel = async (uri?: vscode.Uri) => {
+  console.log('🚀 ~ file: extension.ts:48 ~ executeStepwiseBarrel ~ uri:', uri);
+  try {
+    await vscode.window.showQuickPick(['Create barrel filexxx', 'Update barrel filexxx'], {
+      placeHolder: 'Select action'
+    });
+  } catch (error) {
+    throw new Error(JSON.stringify(error));
+  }
+};
 
-const executeWatcherBarrel = async (_: vscode.Uri) => {};
+const executeWatcherBarrel = async (_?: vscode.Uri) => {};
