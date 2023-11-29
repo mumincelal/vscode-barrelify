@@ -1,10 +1,6 @@
 {
   "root": true,
-  "extends": [
-    "prettier",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["prettier", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 6,
@@ -32,5 +28,5 @@
     "no-throw-literal": "error",
     "semi": "error"
   },
-  "ignorePatterns": ["out", "dist", "**/*.d.ts"]
+  "ignorePatterns": ["build", "dist", "**/*.d.ts"]
 }

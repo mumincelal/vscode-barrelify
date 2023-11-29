@@ -1,29 +1,34 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import { EXECUTE_BARREL_FILE } from './constants';
-import {
-  createBarrelFile,
-  getFilesInFolder,
-  getPreferredExtension,
-  updateBarrelFile
-} from './utils';
+import { createBarrelFile, getFilesInFolder, getPreferredExtension, updateBarrelFile } from './utils';
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('"barrelify" extension is active!');
-
-  const executeBarrelFileDisposable = vscode.commands.registerCommand(
-    EXECUTE_BARREL_FILE,
-    (uri: vscode.Uri) => executeBarrelFile(uri)
-  );
-
-  context.subscriptions.push(executeBarrelFileDisposable);
+  register(context, (uri: vscode.Uri) => executeBarrel(uri), 'executeBarrel');
+  register(context, (uri: vscode.Uri) => executeStepwiseBarrel(uri), 'executeStepwiseBarrel');
+  register(context, (uri: vscode.Uri) => executeWatcherBarrel(uri), 'executeWatcherBarrel');
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+const register = (
+  context: vscode.ExtensionContext,
+  command: (uri: vscode.Uri) => Promise<void>,
+  commandName: string
+) => {
+  const proxy = (args: never) => command(args).catch(handleError);
+  const disposable = vscode.commands.registerCommand(`barrelify.${commandName}`, proxy);
 
-export const executeBarrelFile = async (uri: vscode.Uri) => {
+  context.subscriptions.push(disposable);
+};
+
+const handleError = (error: Error) => {
+  if (error?.message) {
+    vscode.window.showErrorMessage(error.message);
+  }
+
+  return error;
+};
+
+const executeBarrel = async (uri: vscode.Uri) => {
   if (uri && uri.scheme === 'file') {
     const entries = await vscode.workspace.fs.readDirectory(uri);
 
@@ -38,3 +43,7 @@ export const executeBarrelFile = async (uri: vscode.Uri) => {
       : createBarrelFile(fileNames, barrelFilePath);
   }
 };
+
+const executeStepwiseBarrel = async (_: vscode.Uri) => {};
+
+const executeWatcherBarrel = async (_: vscode.Uri) => {};

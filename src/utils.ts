@@ -10,17 +10,11 @@ export const createBarrelFile = async (fileNames: string[], barrelFilePath: stri
     vscode.window.showInformationMessage('Barrel file created successfully.');
   } catch (error) {
     console.error('Error creating barrel file:', error);
-    vscode.window.showErrorMessage(
-      'Error creating barrel file. Please check the console for details.'
-    );
+    vscode.window.showErrorMessage('Error creating barrel file. Please check the console for details.');
   }
 };
 
-export const updateBarrelFile = async (
-  barrelFileName: string,
-  barrelFilePath: string,
-  fileNames: string[]
-) => {
+export const updateBarrelFile = async (barrelFileName: string, barrelFilePath: string, fileNames: string[]) => {
   try {
     const barrelFileContent = readFile(barrelFilePath);
 
@@ -32,9 +26,7 @@ export const updateBarrelFile = async (
       (exportStatement) => !barrelFileContent.includes(exportStatement)
     );
 
-    const updatedBarrelFileContent = [...currentExportStatements, ...newExportStatements]
-      .sort()
-      .join('\n');
+    const updatedBarrelFileContent = [...currentExportStatements, ...newExportStatements].sort().join('\n');
 
     if (updatedBarrelFileContent !== barrelFileContent) {
       writeFile(barrelFilePath, updatedBarrelFileContent);
@@ -45,9 +37,7 @@ export const updateBarrelFile = async (
     }
   } catch (error) {
     console.error('Error updating barrel file:', error);
-    vscode.window.showErrorMessage(
-      'Error updating barrel file. Please check the console for details.'
-    );
+    vscode.window.showErrorMessage('Error updating barrel file. Please check the console for details.');
   }
 };
 
@@ -98,3 +88,5 @@ const getMostRepetitiveValue = (values: string[]) => {
 
   return mostRepetitiveValue;
 };
+
+export const showDialog = () => {};
