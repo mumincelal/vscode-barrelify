@@ -11,11 +11,20 @@
 - This command will create a barrel file in the selected folder if barrel file does not exist.
 - If the barrel file already exists, command will update barrel file.
 
-<!-- ### Using the command palette -->
+### Using the command palette
 
-<!-- - Bring up the command palette, and select `Barrelify: ".
-- Select one of the commands mentioned below.
-- Press [Enter] to confirm, or [Escape] to cancel. -->
+- Bring up the command palette, and select `Barrelify: Execute Barrel File`.
+- Select one of the folders in the list.
+- This command will create a barrel file in the selected folder if barrel file does not exist.
+- If the barrel file already exists, command will update barrel file.
+
+---
+
+- Bring up the command palette, and select `Barrelify: Execute Barrel File (Watch)`.
+- Select one of the folders in the list.
+- This command will create a barrel file in the selected folder if barrel file does not exist.
+- If the barrel file already exists, command will update barrel file.
+- This command will watch the selected folder and update barrel file when a file is created, deleted or renamed.
 
 ## Changelog
 

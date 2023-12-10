@@ -59,7 +59,7 @@ const executeStepwiseBarrel = async (_?: vscode.Uri) => {
     if (workspaceFolder) {
       const rootPath = workspaceFolder.uri.fsPath;
 
-      const subFolders = getAllSubFolders(rootPath, rootPath).flat();
+      const subFolders = await getAllSubFolders(rootPath, rootPath);
 
       const quickPickItems = ['/', ...subFolders].map((subFolder) => ({
         label: subFolder,
@@ -94,7 +94,7 @@ const executeStepwiseBarrel = async (_?: vscode.Uri) => {
     if (workspaceFolder) {
       const rootPath = workspaceFolder.uri.fsPath;
 
-      const subFolders = getAllSubFolders(rootPath, rootPath).flat();
+      const subFolders = await getAllSubFolders(rootPath, rootPath);
 
       const quickPickItems = ['/', ...subFolders].map((subFolder) => ({
         label: subFolder,
@@ -126,4 +126,102 @@ const executeStepwiseBarrel = async (_?: vscode.Uri) => {
   }
 };
 
-const executeWatcherBarrel = async (_?: vscode.Uri) => {};
+const executeWatcherBarrel = async (_?: vscode.Uri) => {
+  if (isMultiRootWorkspace()) {
+    const workspaceFolder = await vscode.window.showWorkspaceFolderPick();
+
+    if (workspaceFolder) {
+      const rootPath = workspaceFolder.uri.fsPath;
+
+      const subFolders = await getAllSubFolders(rootPath, rootPath);
+
+      const quickPickItems = ['/', ...subFolders].map((subFolder) => ({
+        label: subFolder,
+        description: path.basename(subFolder) ? '' : '- workspace root'
+      }));
+
+      try {
+        const selected = await vscode.window.showQuickPick(quickPickItems, {
+          placeHolder: 'Select a folder to create a barrel file in'
+        });
+
+        if (selected) {
+          const watcher = vscode.workspace.createFileSystemWatcher(
+            new vscode.RelativePattern(rootPath, `${selected.label}/**`)
+          );
+
+          watcher.onDidChange(async () => {
+            const folderPath = path.join(rootPath, selected.label);
+            const entries = await vscode.workspace.fs.readDirectory(vscode.Uri.file(folderPath));
+
+            const fileNames = getFilesInFolder(entries);
+            const preferredExtension = getPreferredExtension(folderPath);
+            const barrelFileName = `index${preferredExtension}`;
+            const barrelFilePath = path.join(folderPath, barrelFileName);
+
+            fs.existsSync(barrelFilePath)
+              ? updateBarrelFile(barrelFileName, barrelFilePath, fileNames)
+              : createBarrelFile(fileNames, barrelFilePath);
+          });
+
+          vscode.window.showInformationMessage(`Watching ${selected.label} for changes`);
+        }
+      } catch (error) {
+        throw new Error(JSON.stringify(error));
+      }
+    }
+  } else if (isSingleRootWorkspace()) {
+    const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
+
+    if (workspaceFolder) {
+      const rootPath = workspaceFolder.uri.fsPath;
+
+      const subFolders = await getAllSubFolders(rootPath, rootPath);
+
+      const quickPickItems = ['/', ...subFolders].map((subFolder) => ({
+        label: subFolder,
+        description: path.basename(subFolder) ? '' : '- workspace root'
+      }));
+
+      try {
+        const selected = await vscode.window.showQuickPick(quickPickItems, {
+          placeHolder: 'Select a folder to create a barrel file in'
+        });
+
+        if (selected) {
+          const watcher = vscode.workspace.createFileSystemWatcher(
+            new vscode.RelativePattern(rootPath, `${selected.label}/**`)
+          );
+
+          watcher.onDidCreate(async () => {
+            const folderPath = path.join(rootPath, selected.label);
+            const entries = await vscode.workspace.fs.readDirectory(vscode.Uri.file(folderPath));
+            const fileNames = getFilesInFolder(entries);
+            const preferredExtension = getPreferredExtension(folderPath);
+            const barrelFileName = `index${preferredExtension}`;
+            const barrelFilePath = path.join(folderPath, barrelFileName);
+            fs.existsSync(barrelFilePath)
+              ? updateBarrelFile(barrelFileName, barrelFilePath, fileNames)
+              : createBarrelFile(fileNames, barrelFilePath);
+          });
+
+          watcher.onDidDelete(async () => {
+            const folderPath = path.join(rootPath, selected.label);
+            const entries = await vscode.workspace.fs.readDirectory(vscode.Uri.file(folderPath));
+            const fileNames = getFilesInFolder(entries);
+            const preferredExtension = getPreferredExtension(folderPath);
+            const barrelFileName = `index${preferredExtension}`;
+            const barrelFilePath = path.join(folderPath, barrelFileName);
+            fs.existsSync(barrelFilePath)
+              ? updateBarrelFile(barrelFileName, barrelFilePath, fileNames)
+              : createBarrelFile(fileNames, barrelFilePath);
+          });
+
+          vscode.window.showInformationMessage(`Watching ${selected.label} for changes`);
+        }
+      } catch (error) {
+        throw new Error(JSON.stringify(error));
+      }
+    }
+  }
+};
