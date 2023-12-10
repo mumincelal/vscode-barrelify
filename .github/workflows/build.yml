@@ -30,6 +30,9 @@ jobs:
         run: pnpm install
 
       - name: Building
+        run: pnpm build
+
+      - name: Preparing tests
         run: pnpm pretest
 
       - name: Running tests on Linux

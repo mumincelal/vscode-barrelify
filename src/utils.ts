@@ -94,20 +94,20 @@ export const isMultiRootWorkspace = () =>
 export const isSingleRootWorkspace = () =>
   vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length === 1;
 
-export const getAllSubFolders = (directory: string, root: string): string[] => {
-  const files = fs.readdirSync(directory);
+export const getAllSubFolders = async (directory: string, root: string): Promise<string[]> => {
+  const files = await vscode.workspace.fs.readDirectory(vscode.Uri.file(directory));
 
-  const subFolders = files.map((file) => {
-    const absolutePath = path.join(directory, file);
+  const subFolders: string[] = [];
 
-    if (fs.statSync(absolutePath).isDirectory()) {
+  for (const [file, type] of files) {
+    if (type === vscode.FileType.Directory) {
+      const absolutePath = path.join(directory, file);
       const relativePath = path.relative(root, absolutePath);
+      const childFolders = await getAllSubFolders(absolutePath, root);
 
-      return [`/${relativePath}`, ...getAllSubFolders(absolutePath, root)];
+      subFolders.push(relativePath, ...childFolders);
     }
+  }
 
-    return [];
-  });
-
-  return subFolders.flat();
+  return subFolders;
 };
