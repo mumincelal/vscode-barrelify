@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/mumincelal/barrelify/compare/v1.2.0...v1.3.0) (2023-12-10)
+
+
+### Features
+
+* add file watcher option and update readme ([d83dbb8](https://github.com/mumincelal/barrelify/commit/d83dbb8a230bd7eef4491bd3d98f903f42a18a6a))
+
 # [1.2.0](https://github.com/mumincelal/barrelify/compare/v1.1.0...v1.2.0) (2023-12-10)
 
 
