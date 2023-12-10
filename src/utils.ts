@@ -89,4 +89,25 @@ const getMostRepetitiveValue = (values: string[]) => {
   return mostRepetitiveValue;
 };
 
-export const showDialog = () => {};
+export const isMultiRootWorkspace = () =>
+  vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 1;
+export const isSingleRootWorkspace = () =>
+  vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length === 1;
+
+export const getAllSubFolders = (directory: string, root: string): string[] => {
+  const files = fs.readdirSync(directory);
+
+  const subFolders = files.map((file) => {
+    const absolutePath = path.join(directory, file);
+
+    if (fs.statSync(absolutePath).isDirectory()) {
+      const relativePath = path.relative(root, absolutePath);
+
+      return [`/${relativePath}`, ...getAllSubFolders(absolutePath, root)];
+    }
+
+    return [];
+  });
+
+  return subFolders.flat();
+};

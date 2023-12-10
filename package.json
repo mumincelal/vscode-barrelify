@@ -63,6 +63,7 @@
     "pretest": "tsc -p tsconfig.test.json",
     "test": "node ./out/test/runTest.js",
     "clean": "rimraf out",
+    "knip": "knip",
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
@@ -82,6 +83,7 @@
     "eslint-config-prettier": "^9.0.0",
     "glob": "^10.3.10",
     "husky": "^8.0.3",
+    "knip": "^3.6.1",
     "lint-staged": "^15.1.0",
     "mocha": "^10.2.0",
     "prettier": "^3.1.0",
