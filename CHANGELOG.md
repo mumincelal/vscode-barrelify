@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/mumincelal/barrelify/compare/v1.1.0...v1.2.0) (2023-12-10)
+
+
+### Bug Fixes
+
+* change build github action ([59dc235](https://github.com/mumincelal/barrelify/commit/59dc235fe2a9bc63b703f72d64a1829b8e37231e))
+
+
+### Features
+
+* add altering barrel file from command palette option ([0e46867](https://github.com/mumincelal/barrelify/commit/0e46867df540301cf41839495e2414137f121f2c))
+
 # 1.0.0 (2023-11-26)
 
 ### Bug Fixes
