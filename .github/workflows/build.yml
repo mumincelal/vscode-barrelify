@@ -30,7 +30,7 @@ jobs:
         run: pnpm install
 
       - name: Building
-        run: pnpm build
+        run: pnpm pretest
 
       - name: Running tests on Linux
         run: xvfb-run -a pnpm test
