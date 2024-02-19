@@ -1,6 +1,9 @@
 name: Build
 run-name: Build
+
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -13,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -28,6 +31,9 @@ jobs:
 
       - name: Installing dependencies
         run: pnpm install
+
+      - name: Linting
+        run: pnpm lint
 
       - name: Building
         run: pnpm build
