@@ -1,6 +1,6 @@
 # Barrelify - Visual Studio Code Extension
 
-[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-red?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![semantic-release](https://img.shields.io/badge/semantic--release-angular-red?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 ## How to use
 
@@ -28,7 +28,7 @@
 
 ## Changelog
 
-- [https://github.com/mumincelal/barrelify/blob/master/CHANGELOG.md](https://github.com/mumincelal/barrelify/blob/master/CHANGELOG.md)
+- [https://github.com/mumincelal/vscode-barrelify/blob/master/CHANGELOG.md](https://github.com/mumincelal/vscode-barrelify/blob/master/CHANGELOG.md)
 
 ## Contributors
 
