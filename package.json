@@ -12,7 +12,7 @@
     "url": "https://github.com/mumincelal/vscode-barrelify.git"
   },
   "engines": {
-    "vscode": "^1.84.0"
+    "vscode": "^1.125.0"
   },
   "categories": [
     "Other"
