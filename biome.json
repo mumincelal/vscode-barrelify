@@ -1,0 +1,71 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.4/schema.json",
+  "vcs": {
+    "enabled": false,
+    "clientKind": "git",
+    "useIgnoreFile": false,
+    "defaultBranch": "main"
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/out",
+      "!**/dist",
+      "!**/build",
+      "!**/.dockerignore"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 80,
+    "attributePosition": "auto",
+    "bracketSameLine": true,
+    "bracketSpacing": true,
+    "expand": "auto",
+    "formatWithErrors": false,
+    "useEditorconfig": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "suspicious": {
+        "noUnknownAtRules": "off"
+      },
+      "complexity": {
+        "noUselessFragments": "error"
+      },
+      "correctness": {
+        "noUnusedImports": "error"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "always",
+      "trailingCommas": "none"
+    }
+  },
+  "css": {
+    "linter": {
+      "enabled": true
+    },
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

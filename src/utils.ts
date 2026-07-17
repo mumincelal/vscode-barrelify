@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 export const createBarrelFile = async (fileNames: string[], barrelFilePath: string) => {
   try {
@@ -9,7 +9,6 @@ export const createBarrelFile = async (fileNames: string[], barrelFilePath: stri
 
     vscode.window.showInformationMessage('Barrel file created successfully.');
   } catch (error) {
-    console.error('Error creating barrel file:', error);
     vscode.window.showErrorMessage('Error creating barrel file. Please check the console for details.');
   }
 };
@@ -26,7 +25,7 @@ export const updateBarrelFile = async (barrelFileName: string, barrelFilePath: s
       (exportStatement) => !barrelFileContent.includes(exportStatement)
     );
 
-    const updatedBarrelFileContent = [...currentExportStatements, ...newExportStatements].sort().join('\n');
+    const updatedBarrelFileContent = [ ...currentExportStatements, ...newExportStatements ].sort().join('\n');
 
     if (updatedBarrelFileContent !== barrelFileContent) {
       writeFile(barrelFilePath, updatedBarrelFileContent);
@@ -36,7 +35,6 @@ export const updateBarrelFile = async (barrelFileName: string, barrelFilePath: s
       vscode.window.showInformationMessage('Barrel file is up to date.');
     }
   } catch (error) {
-    console.error('Error updating barrel file:', error);
     vscode.window.showErrorMessage('Error updating barrel file. Please check the console for details.');
   }
 };
@@ -54,9 +52,9 @@ const removeUnusedExports = (fileContent: string, exportStatements: string[]): s
     .filter((line) => !line.startsWith('export * from') || exportStatements.includes(line))
     .sort();
 
-export const getFilesInFolder = (entries: [string, vscode.FileType][]) => {
-  const files = entries.filter(([_, type]) => type === vscode.FileType.File);
-  const fileNames = files.map(([fileName]) => fileName);
+export const getFilesInFolder = (entries: [ string, vscode.FileType ][]) => {
+  const files = entries.filter(([ _, type ]) => type === vscode.FileType.File);
+  const fileNames = files.map(([ fileName ]) => fileName);
 
   return fileNames;
 };
@@ -75,15 +73,15 @@ export const getPreferredExtension = (folderPath: string) => {
 const getMostRepetitiveValue = (values: string[]) => {
   const frequencyMap: Record<string, number> = values.reduce(
     (acc, value) => {
-      acc[value] = (acc[value] || 0) + 1;
+      acc[ value ] = (acc[ value ] || 0) + 1;
       return acc;
     },
     {} as Record<string, number>
   );
 
-  const [mostRepetitiveValue] = Object.entries(frequencyMap).reduce(
-    (max, [value, frequency]) => (frequency > max[1] ? [value, frequency] : max),
-    ['', 0]
+  const [ mostRepetitiveValue ] = Object.entries(frequencyMap).reduce(
+    (max, [ value, frequency ]) => (frequency > max[ 1 ] ? [ value, frequency ] : max),
+    [ '', 0 ]
   );
 
   return mostRepetitiveValue;
@@ -99,7 +97,7 @@ export const getAllSubFolders = async (directory: string, root: string): Promise
 
   const subFolders: string[] = [];
 
-  for (const [file, type] of files) {
+  for (const [ file, type ] of files) {
     if (type === vscode.FileType.Directory) {
       const absolutePath = path.join(directory, file);
       const relativePath = path.relative(root, absolutePath);

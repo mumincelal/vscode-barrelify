@@ -1,6 +1,0 @@
-node_modules
-out
-commitlint.config.js
-.vscode-test
-*.md
-!.eslintrc.json
